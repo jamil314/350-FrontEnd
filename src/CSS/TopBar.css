@@ -8,7 +8,8 @@
 
 .Logo{
     height: 40px;
-    width: 40px;
+    width: 42px;
+    background-repeat: no-repeat;
     background-color: blue;
     background-image: url('../Recources/logo.png'); 
     background-size: 100%;
@@ -44,9 +45,10 @@
 .ProfileButton{
     height: 40px;
     width: 40px;
-    background-image: url('../Recources/profile.jpeg');
+    background-image: url('../Recources/profile.jpg');
     background-size: 100%;
     margin-top: 0px;
+    border-radius: 20px;
 }
 .ProfileButton:hover{
     cursor: pointer;

@@ -207,6 +207,11 @@
     background-image: url(../Recources/create_problem_bg.png);
     height: 100vh;
 }
+.NewContestScroll{
+    max-height: 360px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 
 .NewContestContainer{
     display: flex;

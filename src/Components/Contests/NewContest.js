@@ -150,72 +150,74 @@ const NewContest = () => {
                             <div className="gap24" />
                             <div className="gap24" />
                             <div className="gap24" />
+                            <div className="gap24" />
                             <div className="gap8" />
 
                         </div>
                         <div className="flexRow pad4">
                             
                         </div>
-
-                        {problemList.map((singleProblem, index) => (
-                            <div key={index} className="flexRow pad4">
-                                {problemList.length - 1 === index ? (
-                                    problemList.length === 8? 
-                                    <Button variant="outlined" onClick={submit}><LibraryAddCheckIcon/>Submit</Button>
-                                        :
-                                    <div className="flexRow">
-                                        <Button variant="outlined" onClick={handleProblemAdd}><AddTaskIcon/>Add Problem</Button>
-                                        <div className="gap24" />
+                        <div className="NewContestScroll">
+                            {problemList.map((singleProblem, index) => (
+                                <div key={index} className="flexRow pad4">
+                                    {problemList.length - 1 === index ? (
+                                        problemList.length === 20? 
                                         <Button variant="outlined" onClick={submit}><LibraryAddCheckIcon/>Submit</Button>
-                                    </div>
-                                ) : (
-                                    <div className="flexRow">
-                                        <TextField
-                                            hiddenLabel
-                                            name="id"
-                                            defaultValue="Small"
-                                            variant="filled"
-                                            id="id"
-                                            size="small"
-                                            value={singleProblem.id}
-                                            onChange={(e) => handleProblemChange(e, index)}
-                                        />
+                                            :
+                                        <div className="flexRow">
+                                            <Button variant="outlined" onClick={handleProblemAdd}><AddTaskIcon/>Add Problem</Button>
+                                            <div className="gap24" />
+                                            <Button variant="outlined" onClick={submit}><LibraryAddCheckIcon/>Submit</Button>
+                                        </div>
+                                    ) : (
+                                        <div className="flexRow">
+                                            <TextField
+                                                hiddenLabel
+                                                name="id"
+                                                defaultValue="Small"
+                                                variant="filled"
+                                                id="id"
+                                                size="small"
+                                                value={singleProblem.id}
+                                                onChange={(e) => handleProblemChange(e, index)}
+                                            />
 
-                                        <div className="gap24" />
+                                            <div className="gap24" />
 
-                                        <TextField
-                                            hiddenLabel
-                                            disabled
-                                            name="title"
-                                            defaultValue="Small"
-                                            variant="filled"
-                                            id="title"
-                                            size="small"
-                                            value={singleProblem.title}
-                                            onChange={(e) => handleProblemChange(e, index)}
-                                        />
+                                            <TextField
+                                                hiddenLabel
+                                                disabled
+                                                name="title"
+                                                defaultValue="Small"
+                                                variant="filled"
+                                                id="title"
+                                                size="small"
+                                                value={singleProblem.title}
+                                                onChange={(e) => handleProblemChange(e, index)}
+                                            />
 
-                                        <div className="gap24" />
+                                            <div className="gap24" />
 
-                                        <TextField
-                                            hiddenLabel
-                                            name="alias"
-                                            defaultValue="Small"
-                                            variant="filled"
-                                            id="alias"
-                                            size="small"
-                                            value={singleProblem.alias}
-                                            onChange={(e) => handleProblemChange(e, index)}
-                                        />
+                                            <TextField
+                                                hiddenLabel
+                                                name="alias"
+                                                defaultValue="Small"
+                                                variant="filled"
+                                                id="alias"
+                                                size="small"
+                                                value={singleProblem.alias}
+                                                onChange={(e) => handleProblemChange(e, index)}
+                                            />
 
-                                        <div className="gap24" />
+                                            <div className="gap24" />
 
-                                        <Button variant="outlined" onClick={() => handleProblemRemove(index)}><DeleteSweepIcon/></Button>
-                                    </div>
-                                )}
+                                            <Button variant="outlined" onClick={() => handleProblemRemove(index)}><DeleteSweepIcon/></Button>
+                                        </div>
+                                    )}
 
-                            </div>
-                        ))}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
