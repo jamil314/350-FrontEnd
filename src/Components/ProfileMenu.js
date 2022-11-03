@@ -4,7 +4,7 @@ const ProfileMenu = () => {
 const [isLoggedIn, setLoggedIn] = useState(true);
 
 const gotoProfile = () => {
-	alert("Visiting Profile");
+	window.location.href = "/profile";
 };
 
 const gotoChats = () => {

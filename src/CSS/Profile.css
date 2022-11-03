@@ -1,0 +1,64 @@
+.Profile{
+    background-image: url('../Recources/profile.png');
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
+.PersonalInfo{
+    margin: 48px;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: rgba(220, 220, 300, 60%);
+}
+
+.DisplayPic{
+    background-image: url('../Recources/jamil.jpg');
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 8px 0;
+    border-radius: 8px;
+}
+
+.History{
+    margin: 48px;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: rgba(220, 220, 300, 60%);
+}
+
+.SolveHistory{
+    /* color: white; */
+}
+
+.SolveHistory:hover{
+    cursor: pointer;
+}
+
+
+.SetHistory{
+    color: white; 
+}
+
+.SetHistory:hover{
+    cursor: pointer;
+}
+
+.PopUpBg{
+    height: 95vh;
+    width: 100vw;
+    background-color: rgba(220, 220, 300, 80%);
+    position: fixed;
+    top: 40px;
+}
+
+
+.ClosePopUp{
+    height: 40px;
+    width: 40px;
+    background-color: rgba(220, 220, 300, 80%);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
