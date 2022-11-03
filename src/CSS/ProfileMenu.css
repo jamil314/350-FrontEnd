@@ -1,0 +1,15 @@
+.ProfileMenu{
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    background-color: beige;
+    padding-right: 24px;
+}
+
+.ProfileList{
+    list-style:none;
+}
+
+.ProfileList ul:hover{
+    cursor: pointer;
+}

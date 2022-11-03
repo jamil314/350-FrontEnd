@@ -1,0 +1,23 @@
+.JudgeProfile{
+    display: flex;
+}
+
+.ProfileInfo{
+    width: 50vw;
+}
+.Contribution{
+    width: 50vw;
+}
+.Steps{
+    display: flex;
+    justify-content: space-around;
+}
+
+.flexColumn{
+    display: flex;
+    flex-direction: column;
+}
+.flexColumn{
+    display: flex;
+    
+}

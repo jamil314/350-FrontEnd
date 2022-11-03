@@ -1,0 +1,18 @@
+.App {
+	text-align: center;
+}
+
+button{
+	padding: 2px 8px;
+	border-radius: 12px;
+}
+
+button:hover{
+	cursor: pointer;
+	
+}
+
+
+.w150{
+	width: 150px;
+}

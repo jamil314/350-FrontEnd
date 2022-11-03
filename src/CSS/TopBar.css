@@ -1,0 +1,53 @@
+.TopBar{
+    height: 40px;
+    width: 100vw;
+    background-color: rgba(211, 211, 211, 50%);
+    display: flex;
+    justify-content: space-between;
+}
+
+.Logo{
+    height: 40px;
+    width: 40px;
+    background-color: blue;
+    background-image: url('../Recources/logo.png'); 
+    background-size: 100%;
+}
+.Logo:hover{
+    cursor: pointer;
+}
+.TopBarLeft{
+    display: flex;
+}
+
+.MainMenuContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.MainMenu{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 4px;
+}
+.MainMenu ul{
+    padding-right: 16px;
+}
+.MainMenu ul:hover{
+    cursor: pointer;
+    color: blue;
+}
+
+
+.ProfileButton{
+    height: 40px;
+    width: 40px;
+    background-image: url('../Recources/profile.jpeg');
+    background-size: 100%;
+    margin-top: 0px;
+}
+.ProfileButton:hover{
+    cursor: pointer;
+}

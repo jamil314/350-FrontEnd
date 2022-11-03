@@ -1,0 +1,18 @@
+.Home{
+    background-image: url(../Recources/home_bg.jpg);
+    background-size: contain;
+    height: 100vh;
+    width: 100vw;
+    background-position-x: -40px;
+}
+.slider{
+    display: flex;
+    justify-content: center;
+}
+.slide{
+    border-radius: 48px;
+    margin-top: 10vh;
+    height: 80vh;
+    transition: all;
+    /* transition-delay: 1000ms ease; */
+}

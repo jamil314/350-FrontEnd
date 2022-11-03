@@ -1,0 +1,132 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    color: black;
+}
+.App2 {
+    background: beige;
+    color: var(--graish_blue);
+    min-height: 100vh;
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    width: 80vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #FF7034;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--very_dark);
+}
+#registration_card{
+    height: 95vh;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+a, a:visited {
+    color: #fff;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.signUpButton{
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    color: #000;
+    background-color: gray;
+
+}
+.signUpButton:hover{
+  background: darkgray;
+  color: black;
+  cursor: pointer;
+}
+
+label{
+  margin-top: 0.5rem;
+}
+
+
+
+.instructions {
+    font-size: 0.5rem;
+    border-radius: 0.1rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+    font-size: 12px;
+}
+h1{
+    color: black;
+} */

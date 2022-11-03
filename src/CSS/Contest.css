@@ -1,0 +1,261 @@
+
+
+.Contestlist{
+    background-image: url(../Recources/problem_bg.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: bottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ContestFilter{
+    width: 70vw;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(220, 220, 300, 80%);
+    margin: 8px;
+    border-radius: 16px;
+    padding: 8px 24px;
+}
+
+
+.input{
+    display: flex;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 12px;
+}
+
+.input_field{
+    background-color:azure;
+    min-height: 24px;
+    max-height: 24px;
+    max-width: 160px;
+    min-width: 160px;
+    max-lines: 1;
+}
+
+.ContestItem{
+    width: fit-content;
+    display: flex;
+    justify-content:center;
+}
+.ContestItem:hover{
+    background-color: azure;
+}
+.ContestName{
+    width: 350px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ContestStart{
+    width: 150px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ContestDuration{
+    width: 75px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ContestParticipation{
+    width: 50px;
+    text-align: left;
+    padding-left: 16px;
+}
+
+.ContestOwner{
+    width: 200px;
+    text-align: left;
+    padding-left: 16px;
+}
+
+.ThinBorder{
+    border: 0.4px;
+    border-style:solid;
+}
+
+
+.Problemset{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 48px;
+}
+.ProblemItem{
+    width: fit-content;
+    display: flex;
+    justify-content:center;
+}
+.ProblemItem:hover{
+    background-color: azure;
+}
+
+.Standing{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 67vw;
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 48px;
+    
+}
+.StandingItem{
+    width: fit-content;
+    display: flex;
+    justify-content:center;
+}
+.StandingItem:hover{
+    background-color: azure;
+}
+
+.ParticipentName{
+    width: 300px;
+    text-align: left;
+    padding-left: 16px;
+}
+
+.ParticipentSolved{
+    width: 100px;
+    text-align: middle;
+    padding-left: 16px;
+}
+
+.ParticipentPenalty{
+    width: 100px;
+    text-align: middle;
+    padding-left: 16px;
+}
+
+.ParticipentProblem{
+    width: 48px;
+    text-align: middle;
+    padding-left: 16px;
+}
+
+
+
+.Problem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ProblemItem{
+    width: fit-content;
+    display: flex;
+    justify-content:center;
+}
+.ProblemItem:hover{
+    background-color: azure;
+}
+
+
+.ProblemTitle{
+    width: 300px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ProblemTags{
+    width: 300px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ProblemSolved{
+    width: 71px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ProblemTried{
+    width: 71px;
+    text-align: left;
+    padding-left: 16px;
+}
+.ProblemDiff{
+    width: 80px;
+    text-align: left;
+    padding-left: 16px;
+}
+.clickable{
+    cursor: pointer;
+}
+
+.ContestsContainer{
+    width: 67vw;
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 48px;
+}
+
+
+.Contest{
+    background-image: url(../Recources/problem_bg.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: bottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.NewContest{
+    background-image: url(../Recources/create_problem_bg.png);
+    height: 100vh;
+}
+
+.NewContestContainer{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+.NewContestInfo{
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 24px;
+    margin-top: 80px;
+    margin-right: 16px;
+    max-height: 316px;
+}
+.NewContestDes{
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 24px;
+    margin-top: 8px;
+    width: 60vw;
+}
+.NewContestMain{
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 24px;
+    margin-top: 8px;
+    width: 60vw;
+}
+
+.TestSuit{
+    background-color: rgba(220, 220, 300, 90%);
+    border-radius: 12px;
+    padding: 8px;
+    height: 50px;
+}
+.TestSuitInput{
+    /* width: 250px; */
+    height: 21px;
+}
+
+.TestSuitInputOver{
+    pointer-events: none;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    width: 87px;
+    height: 21px;
+    position: relative;
+    top: -21px
+} 
+
