@@ -62,3 +62,19 @@
     top: 0;
     left: 0;
 }
+
+.EditProfilePopUp{
+    background-color: rgba(220, 220, 300, 95%);
+    padding: 24px;
+    border-radius: 24px;
+    height: 80vh;
+    width: 50vw;
+}
+
+.EditProfileFixHi{
+    height: 60vh;
+}
+
+.bigText{
+    font-size: x-large;
+}
