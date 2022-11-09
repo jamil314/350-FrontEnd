@@ -5,6 +5,20 @@
     background-position: bottom;
 }
 
+.SingleProblem{
+    background-size: cover;
+    background-position: bottom;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.forContest{
+    height: 82vh;
+}
+.forPractice{
+    height: 95vh;
+}
+
 .flexColumn{
     display: flex;
     flex-direction: column;
@@ -75,17 +89,31 @@
     margin: 4px;
     border-radius: 32px;
 }
+
+
+.ActiveStepContainer{
+    padding: 8px 0;
+    border-radius: 32px;
+}
+.ActiveStepContainer text{
+    padding: 8px 75px;
+    border-radius: 32px;
+    color: white;
+    background-color: rgba(0,114,253, 80%);
+}
+
 .StepContainer{
-    margin: 8px;
+    padding: 8px 0;
+    border-radius: 32px;
 }
 .StepContainer text{
+    padding: 8px 75px;
     border-radius: 32px;
-    padding: 8px 48px;
 }
 .StepContainer text:hover{
     cursor: pointer;
-    color: white;
-    background-color: skyblue;
+    color: blue;
+    background-color: rgba(0,114,253, 25%);
 }
 .NewProblem1{
     background-color: rgba(220, 220, 300, 80%);
@@ -128,7 +156,9 @@
     border-radius: 24px;
     padding: 24px;
     margin: 4px;
+    text-align: left;
 }
+
 .NewProblemFullWidth{
     width: 64vw;
 }
@@ -160,14 +190,14 @@
 
 
 .ProblemHeader{
-    width: 90vw;
+    width: 98vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .ProblemInfo{
     background-color: rgba(220, 220, 300, 80%);
-    padding: 0 16px;
+    padding: 8px 16px;
     margin: 8px 0;
     border-radius: 16px;
 }

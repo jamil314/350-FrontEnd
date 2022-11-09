@@ -6,6 +6,7 @@ import Standing from "./Standing"
 import Problemset from "./Problemset"
 import Status from "./Status"
 import Clarification from "./Clarification"
+import ProblemListSmall from "./ProblemListSmall";
 
 const Contest = () => {
     
@@ -15,8 +16,11 @@ const Contest = () => {
     const loadStanding = () =>{
         setmainContent("Standing");
     }
-    const loadProblemset = () =>{
-        setmainContent("Problemset");
+    const loadDashboard = () =>{
+        setmainContent("Dashboard");
+    }
+    const loadProblems = () =>{
+        setmainContent("Problems");
     }
     const loadStatus = () =>{
         setmainContent("Status");
@@ -31,24 +35,28 @@ const Contest = () => {
             <TopBar></TopBar>
 
             <div className="Steps">
-                    <div className="StepContainer Step1Container">
+                    <div className={mainContent=="Dashboard"?"ActiveStepContainer":"StepContainer"}>
+                        <text onClick={loadDashboard}>Dashboard</text>
+                    </div>
+                    <div className={mainContent=="Problems"?"ActiveStepContainer":"StepContainer"}>
+                        <text onClick={loadProblems}>Problems</text>
+                    </div>
+                    <div className={mainContent=="Standing"?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={loadStanding}>Standings</text>
                     </div>
-                    <div className="StepContainer Step2Container">
-                        <text onClick={loadProblemset}>Problemset</text>
-                    </div>
-                    <div className="StepContainer Step3Container">
+                    <div className={mainContent=="Status"?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={loadStatus}>Status</text>
                     </div>
-                    <div className="StepContainer Step4Container">
+                    <div className={mainContent=="Clarification"?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={loadClarification}>Clarification</text>
                     </div>
-                </div>
+            </div>
             {
-                mainContent === "Standing" ? <Standing/> :
-                mainContent === "Problemset" ? <Problemset/> :
-                mainContent === "Status" ? <Status/> :
-                <Clarification/>
+                mainContent === "Dashboard" ? <Problemset contest = {id}/> :
+                mainContent === "Problems" ? <ProblemListSmall contest = {id}/> :
+                mainContent === "Standing" ? <Standing contest = {id}/> :
+                mainContent === "Status" ? <Status contest = {id}/> :
+                <Clarification contest = {id}/>
             }
         </div>
   );

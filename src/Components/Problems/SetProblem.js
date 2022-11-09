@@ -135,30 +135,31 @@ const SetProblem = () => {
         alert("Successfull");
     }
 
-
-
-
+    
+    
 	useEffect(() => {
         handleTagAdd();
         handleSampleTestAdd();
         handlemainTestAdd();
 	}, [])
+    
+
 
     return (
         <div className="SetProblem">
             <TopBar/>
             <div className="App SetProblemMain">
                 <div className="Steps">
-                    <div className="StepContainer Step1Container">
+                    <div className= {step == 1?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={() => setStep(1)}>Step 1</text>
                     </div>
-                    <div className="StepContainer Step2Container">
+                    <div className= {step == 2?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={() => setStep(2)}>Step 2</text>
                     </div>
-                    <div className="StepContainer Step3Container">
+                    <div className= {step == 3?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={() => setStep(3)}>Step 3</text>
                     </div>
-                    <div className="StepContainer Step4Container">
+                    <div className= {step == 4?"ActiveStepContainer":"StepContainer"}>
                         <text onClick={() => setStep(4)}>Step 4</text>
                     </div>
                 </div>
@@ -305,22 +306,11 @@ const SetProblem = () => {
                     ) :step === 3? (
                         <div className="NewProblemFullContainer flexColumn">
                             <div className="NewProblem3 flexColumn">
-                                {/* <TextField 
-                                    label="Problem Statement" 
-                                    margin="normal" 
-                                    variant="outlined" 
-                                    value={statement}
-                                    onChange={e => setstatement(e.target.value)}
-                                    maxRows={12}
-                                    minRows={6}
-                                    multiline
-                                    className="NewProblemStatement"
-                                /> */}
-
                                 <JoditEditor
                                     ref={editor}
                                     value={content}
                                     onChange={newContent => {}}
+                                    className="RichEditor"
                                 />
                                 <div className="flexRow">
                                     <TextField 

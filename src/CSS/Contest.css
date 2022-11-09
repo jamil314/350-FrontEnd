@@ -263,4 +263,34 @@
     position: relative;
     top: -21px
 } 
+.ProblemListSmall{
+    width: 100vw;
+}
 
+
+.ActivePoblemShrotCut{
+    padding: 8px 16px;
+    background-color: rgba(0,114,253, 80%);
+    color: white;
+}
+
+
+.PoblemShrotCut{
+    padding: 8px 16px;
+}
+
+.PoblemShrotCut:hover{
+    color: blue;
+    background-color: rgba(0,114,253, 25%);
+    cursor: pointer;
+}
+.ProblemListSteps{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 32px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
