@@ -5,6 +5,8 @@ import {Button, TextField, InputAdornment} from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+
 
 import "../CSS/Register.css";
 import TopBar from "./TopBar";
@@ -14,7 +16,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,24}$/;
 const EM_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const Register = () => {
+const Register = (prop) => {
 
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
@@ -30,6 +32,14 @@ const Register = () => {
 
   const [showPass, setShowPass] = useState(true);
 
+  const [fullName, setFullName] = useState("");
+  const [regNo, setRegNo] = useState("");
+
+
+  const handleSubmit = () => {
+	alert("signed Up Successfully")
+	prop.abort()
+  }
 
 
   useEffect(() => {
@@ -46,91 +56,129 @@ const Register = () => {
   }, [email]);
 
 
+
   return (
-    <div class="Register">
-      <TopBar/>
-
-      <div className="flexRow">
-        <div className="regesterCard center">
-        	<h1 className="signUpH1">    Sign Up</h1>
-			<TextField 
-				label="User Name" 
-				margin="none"
-				variant="outlined"
-				fullWidth
-				value={user}
-				required
-				color="success"
-				onChange={(e) => setUser(e.target.value)}
-				{...(!validName && {error:true, helperText:"4 to 24 characters."})}
-			/>
-			<TextField 
-				label="Email"
-				margin="none"
-				variant="outlined"
-				fullWidth
-				value={email}
-				required
-				color="success"
-				onChange={(e) => setEmail(e.target.value)}
-				{...(!validEmail && {error:true, helperText:"Invalid Email"})}
-			/>
-			<TextField 
-				label="Password"
-				margin="none"
-				variant="outlined"
-				fullWidth
-				value={pwd}
-				type = {showPass?"text":"password"}
-				required
-				color="success"
-				onChange={(e) => setPwd(e.target.value)}
-				{...(!validPwd && {error:true, helperText:"8 - 24 character"})}
-				InputProps={{
-					endAdornment:
-						showPass? <InputAdornment position='end' onClick = {() => setShowPass(false)}><VisibilityIcon/></InputAdornment>
-						: <InputAdornment position='end' onClick = {() => setShowPass(true)}><VisibilityOffIcon/></InputAdornment>
-				}}
-			/>
+    <div class="RegisterMain">
+		<div className="LoginBigLogo"/>
+		<div className="regesterCard">
+		<div className="flexRow"> <h1 className="signUpH1">Sign Up</h1> </div>
+		
+		<div className="rowCenter width800px">
+			<div className=" width400px flexRow">
+				<div className="flexColumn">
+					<TextField 
+						label="Full Name" 
+						margin="none"
+						variant="outlined"
+						fullWidth
+						value={fullName}
+						required
+						onChange={(e) => setFullName(e.target.value)}
+					/>
+					<TextField 
+						label="Email"
+						margin="none"
+						variant="outlined"
+						fullWidth
+						value={email}
+						required
+						color="success"
+						onChange={(e) => setEmail(e.target.value)}
+						// size="small"
+						{...(!validEmail && {error:true, helperText:"Invalid Email"})}
+					/>
+					<TextField 
+						label="Password"
+						margin="none"
+						variant="outlined"
+						fullWidth
+						value={pwd}
+						type = {showPass?"text":"password"}
+						required
+						color="success"
+						onChange={(e) => setPwd(e.target.value)}
+						// size="small"
+						{...(!validPwd && {error:true, helperText:"8 - 24 character"})}
+						InputProps={{
+							endAdornment:
+								showPass? <InputAdornment position='end' onClick = {() => setShowPass(false)}><VisibilityIcon/></InputAdornment>
+								: <InputAdornment position='end' onClick = {() => setShowPass(true)}><VisibilityOffIcon/></InputAdornment>
+							}}
+					/>
+				</div>
+			</div>
+	
+			<div className=" width400px flexRow">
+				<div className="flexColumn ">
+					<TextField 
+						label="User Name" 
+						// size="small"
+						margin="none"
+						variant="outlined"
+						fullWidth
+						value={user}
+						required
+						color="success"
+						onChange={(e) => setUser(e.target.value)}
+						{...(!validName && {error:true, helperText:"4 to 24 characters."})}
+						/>
+					<TextField 
+						label="Regestration Number"
+						// size="small"
+						margin="none"
+						variant="outlined"
+						fullWidth
+						value={regNo}
+						required
+						onChange={(e) => setRegNo(e.target.value)}
+						// {...(!validEmail && {error:true, helperText:"Invalid Email"})}
+					/>
+				
+				
+					<TextField 
+						label="Confirm Password"
+						// size="small"
+						margin="none"
+						variant="outlined"
+						fullWidth
+						value={matchPwd}
+						type = {showPass?"text":"password"}
+						required
+						color="success"
+						onChange={(e) => setMatchPwd(e.target.value)}
+						{...(!validMatch && {error:true, helperText:"Insert First Password Again"})}
+						InputProps={{
+							endAdornment:
+								showPass? <InputAdornment position='end' onClick = {() => setShowPass(false)}><VisibilityIcon/></InputAdornment>
+								: <InputAdornment position='end' onClick = {() => setShowPass(true)}><VisibilityOffIcon/></InputAdornment>
+						}}
+					/>
 			
-
-			<TextField 
-				label="Confirm Password"
-				margin="none"
-				variant="outlined"
-				fullWidth
-				value={matchPwd}
-				type = {showPass?"text":"password"}
-				required
-				color="success"
-				onChange={(e) => setMatchPwd(e.target.value)}
-				{...(!validMatch && {error:true, helperText:"Insert First Password Again"})}
-				InputProps={{
-					endAdornment:
-						showPass? <InputAdornment position='end' onClick = {() => setShowPass(false)}><VisibilityIcon/></InputAdornment>
-						: <InputAdornment position='end' onClick = {() => setShowPass(true)}><VisibilityOffIcon/></InputAdornment>
-				}}
-			/>
-		  
-
-          	<Button  
-			  	disabled={!validName || !validPwd || !validMatch ? true : false}
-				onClick = {() => {alert("signed Up")}}
-		  	><TaskAltIcon/>  Sign Up</Button>
-        <p>
-          <span>
-          	Already Have an account?{"  "}
-            <a href="/login">Sign In</a>
-          </span>
-		  <br/>
-          <span>
-            By continuing, you agree to our<br/>
-            <a href="/terms">Terms of Service</a> and{" "}
-            <a href="/privacy">Privacy Policy</a>.
-          </span>
-        </p>
-      </div>
-      </div>
+				</div>
+			</div>
+	  	</div>
+		<div className="flexRow pad150px">
+			<Button  
+				onClick = {() => prop.abort()}
+			><DisabledByDefaultIcon/>Abort</Button>
+			<Button  
+				disabled={!validName || !validPwd || !validMatch ? true : false}
+				onClick = {() => handleSubmit()}
+			><TaskAltIcon/>  Sign Up</Button>
+		</div>
+		<div className="signUpBottom">
+			<span>
+				Already Have an account?{"  "}
+				<a className="isLink" onClick={() => prop.setState("login")()}>Sign In</a>
+			</span>
+			<br/>
+			<span>
+				By continuing, you agree to our{" "}
+				<a href="/terms">Terms of Service</a> and{" "}
+				<a href="/privacy">Privacy Policy</a>.
+			</span>
+		</div>
+		</div>
     </div>
   );
 };

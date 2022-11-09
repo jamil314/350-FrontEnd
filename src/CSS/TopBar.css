@@ -33,12 +33,14 @@
     justify-content: space-around;
     padding-left: 4px;
 }
-.MainMenu ul{
-    padding-right: 16px;
+.MainMenu a{
+    padding: 10px 24px;
+    /* border-radius: 24px; */
 }
-.MainMenu ul:hover{
+.MainMenu a:hover{
     cursor: pointer;
     color: blue;
+    background-color: rgba(211, 211, 255, 50%);
 }
 
 

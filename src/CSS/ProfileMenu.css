@@ -3,14 +3,24 @@
     top: 42px;
     right: 2px;
     background-color: rgba(211, 211, 211, 85%);
-    padding-right: 24px;
-    border-radius: 20px;
+    /* padding-right: 24px; */
+    border-radius: 24px;
+    z-index: 1;
+    text-align: center;
 }
 
 .ProfileList{
-    list-style:none;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
 }
 
-.ProfileList ul:hover{
+.ProfileList a{
+    padding: 8px 32px;
+}
+
+.ProfileList a:hover{
     cursor: pointer;
+    background-color: rgba(211, 255, 211, 85%);
+    border-radius: 24px;
 }

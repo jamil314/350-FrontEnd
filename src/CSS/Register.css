@@ -1,8 +1,38 @@
-.Register{
-    background-image: url('../Recources/regester.jpeg');
-    height: 100vh;
-    width: 100vw;
+.LoginMain{
+    background-color: rgba(138, 255, 255, 80%);
+    width: 1000px;
+    border-radius: 48px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin: 0;
+}
+.Register:textbox{
+    background-color: rgba(138, 255, 255, 90%);
+}
+.RegisterMain{
+    background-color: rgba(138, 255, 255, 80%);
+    width: 1200px;
+    border-radius: 48px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin: 0;
+    height: 500px;
+}
+.LoginBigLogo{
+    background-image: url('../Recources/logo.png');
+    width: 500px;
     background-size: cover;
+}
+.width500px{
+    width: 500px;
+}
+.width400px{
+    width: 300px;
+}
+.width800px{
+    width: 700px;
 }
 .center{
     height: 80vh;
@@ -15,23 +45,49 @@
     margin-top: 40px;
     height: 60vh;
     width: 20vw;
-    background-color: rgba(220, 220, 300, 80%);
-    border-radius: 16px;
     padding: 24px 48px;
 }
 .regesterCard {
-    margin-top: 40px;
-    height: 80vh;
-    width: 20vw;
-    background-color: rgba(220, 220, 300, 80%);
-    border-radius: 16px;
-    padding: 24px 48px;
+    height: 500px;
+    /* padding: 12px 0; */
 }
 
 .signUpH1{
     padding-left: 40px;
+    margin: 36px 0;
     background-image: url('../Recources/signup.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
+.AbortLogin{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
 
+.point:hover{
+    cursor: pointer;
+}
+
+.rowCenter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 250px;
+}
+
+.pad150px{
+    padding: 0 150px;
+}
+
+.signUpBottom{
+    padding-top: 24px;
+    text-align: center;
+}
+
+.isLink{
+    color: blue;
+}
+.isLink:hover{
+    cursor: pointer;
+}

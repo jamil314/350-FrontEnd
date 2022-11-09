@@ -19,7 +19,7 @@ const Home = () => {
 		t+=0.5;
 		if(t>=8) t =0;
 		setIdx(t);
-		console.log(t);
+		// console.log(t);
 	}
 
 	useEffect(() => {

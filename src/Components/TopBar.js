@@ -14,20 +14,20 @@ const TopBar = () => {
             <div className="TopBarLeft">
                 <div className="Logo" onClick={() => window.location.href = '/home'}/>
                 <div className="MainMenuContainer">
-                    <li className="MainMenu">
-                        <ul onClick={() => window.location.href = '/home'}>Sust Swe Oj</ul>
-                        <ul onClick={() => window.location.href = '/contests'}>Contests</ul>
-                        <ul onClick={() => window.location.href = '/problems'}>Problems</ul>
-                        <ul onClick={() => window.location.href = '/groups'}>Groups</ul>
-                        <ul onClick={() => window.location.href = '/users'}>Users</ul>
-                        <ul onClick={() => window.location.href = '/submissions'}>Submissions</ul>
-                    </li>
+                    <div className="MainMenu">
+                        <a onClick={() => window.location.href = '/home'}>Sust Swe Oj</a>
+                        <a onClick={() => window.location.href = '/contests'}>Contests</a>
+                        <a onClick={() => window.location.href = '/problems'}>Problems</a>
+                        <a onClick={() => window.location.href = '/groups'}>Groups</a>
+                        <a onClick={() => window.location.href = '/users'}>Users</a>
+                        <a onClick={() => window.location.href = '/submissions'}>Submissions</a>
+                    </div>
                 </div>
             </div>
             <button className="ProfileButton" onClick={toggleProfileMenu}/>
             
             {
-                showProfileMenu?<ProfileMenu/>:null
+                showProfileMenu?<ProfileMenu toggle = {toggleProfileMenu}/>:null
             }
 
 

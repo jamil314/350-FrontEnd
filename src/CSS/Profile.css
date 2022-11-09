@@ -50,7 +50,9 @@
     width: 100vw;
     background-color: rgba(220, 220, 300, 80%);
     position: fixed;
+    left: 0;
     top: 40px;
+    z-index: 1;
 }
 
 
