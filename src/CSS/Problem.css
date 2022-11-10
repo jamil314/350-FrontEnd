@@ -230,3 +230,33 @@
     border-radius: 16px;
     padding: 16px 48px;
 }
+
+
+.jodit-status-bar{
+    visibility: hidden  ;
+}
+.RichEditor{
+    max-lines: 3;
+    max-height: 500px;
+}
+
+.RichTextContainer{
+    max-height: 500px;
+}
+.jodit-wysiwyg{
+    max-height: 225px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.jodit-wysiwyg.p{
+    margin: 0;
+}
+
+.jodit-wysiwyg::selection{
+    color: green;
+}
+
+.jodit-wysiwyg::moz-selection{
+    color: green;
+}

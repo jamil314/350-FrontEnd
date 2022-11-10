@@ -306,12 +306,14 @@ const SetProblem = () => {
                     ) :step === 3? (
                         <div className="NewProblemFullContainer flexColumn">
                             <div className="NewProblem3 flexColumn">
-                                <JoditEditor
-                                    ref={editor}
-                                    value={content}
-                                    onChange={newContent => {}}
-                                    className="RichEditor"
-                                />
+                                <div className="RichTextCOntainer">
+                                    <JoditEditor
+                                        ref={editor}
+                                        value={content}
+                                        onChange={newContent => {}}
+                                        className="RichEditor"
+                                    />
+                                    </div>
                                 <div className="flexRow">
                                     <TextField 
                                         label="Input Description" 

@@ -19,6 +19,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.1.3",
     "date-fns": "^2.29.3",
+    "jodit": "^3.22.1",
     "jodit-react": "^1.3.23",
     "lexical": "^0.6.0",
     "react": "^18.2.0",
