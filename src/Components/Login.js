@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {Button, TextField, InputAdornment} from '@mui/material';
+import axios from 'axios';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -18,8 +19,17 @@ const Login = (prop) => {
   const [showPass, setShowPass] = useState(true);
 
 	const handleSubmit = () => {
-		alert("Logged in Successfully")
-		prop.abort();
+		axios.post('http://localhost:3000/user/login', {
+			username:user,
+			password:pwd
+		}).then((res) =>{
+			alert("Logged in Successfully")
+			localStorage.setItem('token', res.data.token);
+			localStorage.setItem('userID', res.data.userID);
+			prop.abort()
+		}).catch((res) => {
+				alert("Incorrect username or Password")
+		})
 	}
 
   return (
