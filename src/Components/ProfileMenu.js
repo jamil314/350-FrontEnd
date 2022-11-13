@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../CSS/ProfileMenu.css";
 import Login from "./Login";
 import Register from "./Register";
+import axios from 'axios';
+
 
 
 const ProfileMenu = (prop) => {
 
 	const [state, setState] = useState("");
 
-	const [isLoggedIn, setLoggedIn] = useState(true);
+	const [isLoggedIn, setLoggedIn] = useState(false);
 
 	const gotoProfile = () => {
-		window.location.href = "/profile";
+		window.location.href = "/profile/"+localStorage.getItem('userID');
 	};
 
 	const gotoChats = () => {
@@ -34,6 +36,22 @@ const ProfileMenu = (prop) => {
 		prop.toggle();
 	}
 
+	const authenticate = () => {
+		console.log(localStorage.getItem('token'));
+        axios.get('http://localhost:3000/user/auth',{
+            headers: { 'authorization': localStorage.getItem('token') },
+        }).then((res) =>{
+			console.log(res);
+			setLoggedIn(true)
+        }).catch((res) => {
+			console.log(res);
+		})
+	}
+
+    useEffect(() => {
+        authenticate();
+    }, []);
+
 	return (
 		<div className="ProfileMenu">
 			{state == "" ?
@@ -43,7 +61,7 @@ const ProfileMenu = (prop) => {
 					<a onClick={gotoProfile}>Profile</a>
 					<a onClick={gotoChats}>Chats</a>
 					<a onClick={gotoInvites}>Invites</a>
-					<a onClick={openJudgePortal}>Judge Portal</a>
+					{/* <a onClick={openJudgePortal}>Judge Portal</a> */}
 					<a onClick={logOut}>Log Out</a>
 				</div>
 				) : (

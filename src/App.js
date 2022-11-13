@@ -53,7 +53,7 @@ function App() {
 					<Route path="/judge/profile" element={<JudgeProfile />} />
 					<Route path="/newproblem" element={<SetProblem />} />
 					<Route path="/newcontest" element={<NewContest />} />
-					<Route path="/profile" element={<Profile/>} />
+					<Route path="/profile/:id" element={<Profile/>} />
 					<Route path="*" element={<NotFound code={404} msg={"Page Not Found"} />} />
 				</Routes>
 			</BrowserRouter>

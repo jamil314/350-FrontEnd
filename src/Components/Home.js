@@ -13,20 +13,15 @@ const Home = () => {
 
 	const [imgs, setImgs] = useState([img1, img2, img3, img4, img5, img6, img7, img8]);
 	const [idx, setIdx] = useState(0);
-	const [started, setstarted] = useState(0);
 	let t = 0;
 	const update = () => {
-		t+=0.5;
+		t++;
 		if(t>=8) t =0;
 		setIdx(t);
-		// console.log(t);
 	}
 
 	useEffect(() => {
-		if(started == 0){
-			setstarted(1);
-			setInterval(update, 3000);
-		}
+		setInterval(update, 3000);
 	}, [])
 
 	return (

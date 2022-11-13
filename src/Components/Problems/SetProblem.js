@@ -14,8 +14,11 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import '../../CSS/Problem.css'
 import TopBar from '../TopBar'
+import { text } from "@fortawesome/fontawesome-svg-core";
 const SetProblem = () => {
 	const editor = useRef(null);
+	const editorIn = useRef(null);
+	const editorOut = useRef(null);
 	const [content, setContent] = useState('');
 
     const [step, setStep] = useState(1)
@@ -28,6 +31,8 @@ const SetProblem = () => {
     const [tagList, setTagList] = useState([{ tag: "" }]);
     const [sampleTestList, setSampleTestList] = useState([{input: "" , output: ""}]);
     const [mainTestList, setmainTestList] = useState([{input: "" , output: ""}]);
+    const [diff, setdiff] = useState();
+    const [uploadStatus, setUploadStatus] = useState("");
 
     const handleTagChange = (e, index) => {
         const { name, value } = e.target;
@@ -37,7 +42,6 @@ const SetProblem = () => {
     };
 
     const handleTagRemove = (index) => {
-        alert("removing", index)
         const list = [...tagList];
         list.splice(index, 1);
         setTagList(list);
@@ -52,28 +56,33 @@ const SetProblem = () => {
 
     const handleSampleInputChange = (e, index) => {
         const file = e.target.files[0];
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            const list = [...sampleTestList];
-            list[index]["input"] = e.target.result;
-            setSampleTestList(list);
+        if(file.size>500) alert("sample should be <= 500 bytes")
+        else{   
+            let reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = (e) => {
+                const list = [...sampleTestList];
+                list[index]["input"] = e.target.result;
+                setSampleTestList(list);
+            }
         }
     };
 
     const handleSampleOutputChange = (e, index) => {
         const file = e.target.files[0];
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            const list = [...sampleTestList];
-            list[index]["output"] = e.target.result;
-            setSampleTestList(list);
+        if(file.size>500) alert("sample should be <= 500 bytes")
+        else{
+            let reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = (e) => {
+                const list = [...sampleTestList];
+                list[index]["output"] = e.target.result;
+                setSampleTestList(list);
+            }
         }
     };
 
     const handleSampleTestRemove = (index) => {
-        console.log(index)
         const list = [...sampleTestList];
         console.log(list);
         list.splice(index, 1);
@@ -112,7 +121,6 @@ const SetProblem = () => {
     };
 
     const handlemainTestRemove = (index) => {
-        console.log(index)
         const list = [...mainTestList];
         console.log(list);
         list.splice(index, 1);
@@ -125,14 +133,108 @@ const SetProblem = () => {
         setmainTestList([...mainTestList, {input: "" , output: ""}]);
     };
 
+    const uploadMain = (pid) => {
+        setUploadStatus("Uploading Main test cases")
+        let toComplete = mainTestList.length - 1;
+        mainTestList.map((test, index) => {
+                if(index != mainTestList.length - 1) {
+                    axios.post('http://localhost:3000/problem/mainInput', {
+                        // path:pid+"/main"+index,
+                        data:test.input.split(',')[1],
+                        pid, index
+                    },{
+                        headers: { 'authorization': localStorage.getItem('token') },
+                    }).then((res) =>{
+                        axios.post('http://localhost:3000/problem/mainOutput', {
+                            data:test.input.split(',')[1],
+                            pid, index
+                        },{
+                            headers: { 'authorization': localStorage.getItem('token') },
+                        }).then((res) =>{
+                            axios.post('http://localhost:3000/problem/mainCase', {
+                                index,
+                                pid,
+                                input:"../350-storage/"+pid+"/"+index+"/input.txt",
+                                output:"../350-storage/"+pid+"/"+index+"/output.txt",
+                            },{
+                                headers: { 'authorization': localStorage.getItem('token') },
+                            }).then((res) =>{
+                                toComplete--;
+                                if(toComplete == 0) 
+                                alert("Created Problem Successfully")
+                            }).catch((res) =>{
+                                alert("create problem failed")
+                            })
+                            }).catch((res) =>{
+                                alert("create problem failed")
+                            })
+                    }).catch((res) =>{
+                        alert("create problem failed")
+                    })
+                    console.log(test.input);
+                    console.log(test.output);
+                }
+            }
+        )
+        console.log(mainTestList);
+    }
+
+
+    const uploadSamples = (pid) => {
+        setUploadStatus("Uploading Sample test cases")
+        let toComplete = sampleTestList.length - 1;
+        sampleTestList.map((test, index) => {
+                if(index != sampleTestList.length - 1) {
+                    axios.post('http://localhost:3000/problem/sampleCase', {
+                        pid,
+                        index,
+                        input:test.input,
+                        output:test.output
+                    },{
+                        headers: { 'authorization': localStorage.getItem('token') },
+                    }).then((res) =>{
+                        toComplete--;
+                        if(toComplete == 0) uploadMain(pid);
+                    }).catch((res) =>{
+                        alert("create problem failed")
+                    })
+                }
+            }
+        )
+        console.log(sampleTestList);
+    }
+
+
+
+    const uploadTags = (pid) => {
+        setUploadStatus("Uploading tags")
+        axios.post('http://localhost:3000/problem/tags', {
+            tagList,
+            pid
+        },{
+            headers: { 'authorization': localStorage.getItem('token') },
+        }).then((res) =>{
+            uploadSamples(pid);
+		}).catch((res) =>{
+			alert("create problem failed")
+		})
+    }
+    
+    const createProblem = () => {
+        setUploadStatus("Creating Contest")
+        axios.post('http://localhost:3000/problem', {
+            title, timeLimit,  memoryLimit, statement, inputDescription, outputDescription, diff
+		},{
+            headers: { 'authorization': localStorage.getItem('token') },
+        }).then((res) =>{
+            uploadTags(res.data.id);
+		}).catch((res) =>{
+			alert("create problem failed")
+		})
+    }
 
     const submit = () => {
-
-        // axios.post('http://localhost:3001/problem', {
-        //     title, 'inputmainFile':inputSampleFile, 'outputSampleFile': outputSampleFile, 'inputMainFile':inputMainFile, 'outputMainFile': outputMainFile, timeLimit, memoryLimit, statement, inputDescription, outputDescription, tagList
-        // })
-
-        alert("Successfull");
+        createProblem();
     }
 
     
@@ -169,6 +271,7 @@ const SetProblem = () => {
                             <div className="NewProblem1 flexRow">
                                 <TextField 
                                     fullWidth
+                                    required
                                     label="Problem Title" 
                                     margin="normal" 
                                     variant="outlined" 
@@ -188,6 +291,7 @@ const SetProblem = () => {
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <TextField 
+                                            type='number'
                                             label="Time Limit" 
                                             margin="normal" 
                                             variant="outlined" 
@@ -202,6 +306,7 @@ const SetProblem = () => {
                                     
                                     <Grid item xs={6}>
                                         <TextField 
+                                            type='number'
                                             label="Memory Limit" 
                                             margin="normal" 
                                             variant="outlined" 
@@ -233,6 +338,7 @@ const SetProblem = () => {
                                                         <div className="TestSuitInput">
                                                             <input 
                                                                 type="file"
+                                                                accept=".txt"
                                                                 onChange={(e) => {handleSampleInputChange(e, index)}}
                                                             />
                                                             <div className="TestSuitInputOver">Input</div>
@@ -240,6 +346,7 @@ const SetProblem = () => {
                                                         <div className="TestSuitInput">
                                                             <input 
                                                                 type="file"
+                                                                accept=".txt"
                                                                 onChange={(e) => {handleSampleOutputChange(e, index)}}
                                                             />
                                                             <div className="TestSuitInputOver">Output</div>
@@ -268,6 +375,7 @@ const SetProblem = () => {
                                                     <div className="flexColumn">
                                                         <div className="TestSuitInput">
                                                             <input 
+                                                                accept=".txt"
                                                                 type="file"
                                                                 onChange={(e) => {handlemainInputChange(e, index)}}
                                                             />
@@ -275,6 +383,7 @@ const SetProblem = () => {
                                                         </div>
                                                         <div className="TestSuitInput">
                                                             <input 
+                                                                accept=".txt"
                                                                 type="file"
                                                                 onChange={(e) => {handlemainOutputChange(e, index)}}
                                                             />
@@ -305,16 +414,44 @@ const SetProblem = () => {
                         </div>
                     ) :step === 3? (
                         <div className="NewProblemFullContainer flexColumn">
+
+                                <div className="flexColumn IODes">
+                                    <div className="flexRow">Input Description:</div>
+                                    <div className="gap8"/>
+                                    <JoditEditor
+                                        ref={editorIn}
+                                        value={inputDescription}
+                                        onChange={e => {setinputDescription(e)}}
+                                        className="RichEditor"
+                                    />
+                                    <div className="gap8"/>
+                                    <div className="flexRow">Output Description:</div>
+                                    <div className="gap8"/>
+                                    <JoditEditor
+                                        ref={editorOut}
+                                        value={outputDescription}
+                                        onChange={e => {setoutputDescription(e)}}
+                                        className="RichEditor"
+                                    />
+                                </div>
                             <div className="NewProblem3 flexColumn">
+                            <div className="flexRow">Problem Statement:</div>
+                            <div className="gap8"/>
                                 <div className="RichTextCOntainer">
                                     <JoditEditor
                                         ref={editor}
-                                        value={content}
-                                        onChange={newContent => {}}
+                                        value={statement}
+                                        onChange={e => {setstatement(e)}}
                                         className="RichEditor"
                                     />
-                                    </div>
-                                <div className="flexRow">
+                                </div>
+                                <div className="gap8"/>
+                                <div className="gap8"/>
+                                <div className="gap8"/>
+
+
+
+                                {/* <div className="flexRow">
                                     <TextField 
                                         label="Input Description" 
                                         margin="normal" 
@@ -339,7 +476,7 @@ const SetProblem = () => {
                                         multiline
                                         fullWidth
                                     />  
-                                </div>
+                                </div> */}
                                 <div className="flexRow pad240">
                                     <Button variant="contained" onClick={() => setStep(2)}><NavigateBeforeIcon/>Prev</Button>
                                     <Button variant="contained" onClick={() => setStep(4)}>Next<NavigateNextOutlinedIcon/></Button>
@@ -349,7 +486,18 @@ const SetProblem = () => {
                     ) : (
                         <div className="NewProblemFullWidth flexRow">
                             <div className="NewProblemFullContainer flexColumn">
-                                <div className="NewProblem4">
+
+                                <div className="NewProblem4 flexColumn">
+                                    <div className="diffContainer">
+                                        <TextField 
+                                            label="Problem Difficulty" 
+                                            margin="normal" 
+                                            variant="outlined" 
+                                            type='number'
+                                            value={diff}
+                                            onChange={e => setdiff(e.target.value)}
+                                        />  
+                                    </div>
                                     <label htmlFor="tag">Tag(s)</label>
 
                                     <div className="NewProblem4Scroll">

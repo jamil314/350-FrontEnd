@@ -14,5 +14,5 @@
     margin-top: 10vh;
     height: 80vh;
     transition: all;
-    /* transition-delay: 1000ms ease; */
+    transition-delay: 1000ms ease;
 }

@@ -8,15 +8,16 @@ import {Button} from '@mui/material'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 const Problems = () => {
 
-	const [problems, setProblems] = useState([]);
+	const [problems, setProblems] = useState([{}]);
 	const [problemHeader, setProblemHeader] = useState({});
 
 
 	async function getAllProblems(){
-		const response = await axios.get('http://localhost:3001/problem');
-		
-		setProblems(response.data);
-		console.log(problems);
+		axios.get('http://localhost:3000/problem', {
+		}).then((res) =>{
+            console.log(res.data);
+			setProblems(res.data);
+		})
 	}
 	
 
@@ -36,6 +37,7 @@ const Problems = () => {
 					{problems.map((problem)=> {return <ProblemItem problem={problem}/>})}
 				</div>
 			</div>
+
 		</div>
   );
 }

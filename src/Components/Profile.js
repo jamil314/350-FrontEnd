@@ -1,5 +1,6 @@
 import { Grid } from "@material-ui/core";
 import {React, useState, useEffect} from "react";
+import { useParams } from "react-router-dom";
 import '../CSS/Profile.css'
 import TopBar from "./TopBar";
 import axios from 'axios';
@@ -20,11 +21,14 @@ const EM_REGEX =
 
 const Profile = () => {
 
+    const {id} = useParams();
+    // let uid = id!==undefined? id : localStorage.getItem("userID");
+
     const [reg, setReg] = useState("2018831035");    
     const [session, setSession] = useState("2018-19");    
     const [lastSeen, setLastSeen] = useState("8h ago");    
     const [regestered, setRegestered] = useState("3y ago");    
-    const [owner, setOwner] = useState(true);
+    const [owner, setOwner] = useState(false);
     const [editProfileMode, setEditProfileMode] = useState(false);    
     const [FullName, setFullName] = useState("Jamil314");
 
@@ -51,7 +55,6 @@ const Profile = () => {
   
 
     const fetchProfileInfo = () => {
-        const id = localStorage.getItem('userID');
 		axios.get('http://localhost:3000/user/byID/'+id, {
 		}).then((res) =>{
             console.log(res.data);
@@ -134,6 +137,7 @@ const Profile = () => {
 
     useEffect(() => {
         fetchProfileInfo();
+        setOwner ( (localStorage.getItem('userID') == id));
     }, []);
 
 
