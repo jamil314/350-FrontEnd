@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect} from 'react';
+import socketClient from 'socket.io-client'
+
 import '../../CSS/Contest.css'
 import {Button, TextField} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+
 const ContestFilter = () => {
+    const serchContest = () => {
+        const socket = socketClient('http://localhost:3000', {
+            query: { token:localStorage.getItem('token') }
+          });
+        socket.emit('jamil')
+        socket.on("reply", (data) => {
+            console.log("reply: ", data);
+            socket.disconnect();
+            socket.emit('jamil2')
+        })
+    }
+
+
     return (
         <div className="ContestFilter">
             <TextField 
@@ -23,7 +39,7 @@ const ContestFilter = () => {
                 variant="outlined"
                 size="small"
             />
-			<Button variant="contained"><SearchIcon/>Search</Button>
+			<Button variant="contained" onClick={() => serchContest()}><SearchIcon/>Search</Button>
         </div>
   );
 }

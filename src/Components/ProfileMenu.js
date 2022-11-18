@@ -61,7 +61,7 @@ const ProfileMenu = (prop) => {
 					<a onClick={gotoProfile}>Profile</a>
 					<a onClick={gotoChats}>Chats</a>
 					<a onClick={gotoInvites}>Invites</a>
-					{/* <a onClick={openJudgePortal}>Judge Portal</a> */}
+					<a onClick={() => window.location.href='/newproblem'}>Create Problem</a>
 					<a onClick={logOut}>Log Out</a>
 				</div>
 				) : (

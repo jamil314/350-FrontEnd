@@ -37,6 +37,7 @@ const customTheme = createMuiTheme({
 	}
 });
 
+
 function App() {
 	return (
 		<ThemeProvider theme={customTheme}>

@@ -234,6 +234,12 @@
     padding: 16px 48px;
 }
 
+.ProblemsContainerScroller{
+    max-height: 70vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 
 .jodit-status-bar{
     visibility: hidden  ;

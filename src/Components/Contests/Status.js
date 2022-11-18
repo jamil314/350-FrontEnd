@@ -1,22 +1,50 @@
-// import {React, useState} from "react";
-// import '../../CSS/Contest.css'
-// import '../../CSS/Problem.css'
+// import io from "socket.io-client";
+// import { useEffect, useState } from "react";
 
 
-import React, { useState, useRef, useMemo } from 'react';
-import JoditEditor from 'jodit-react';
-import Jodit from 'jodit'
+// function Status() {
+//   //Room State
+//   const [room, setRoom] = useState("");
 
-const Status = ({ placeholder }) => {
-    // var editor = Jodit.make('#editor');
-    // editor.setEditorValue('<p>start</p>')
+//   // Messages States
+//   const [message, setMessage] = useState("");
+//   const [messageReceived, setMessageReceived] = useState("");
 
-	return (
-        <div>
-                status
-                <textarea id="editor"></textarea>
+//   const joinRoom = () => {
+//     if (room !== "") {
+//       socket.emit("join_room", room);
+//     }
+//   };
 
-        </div>
-	);
-}
-export default Status;
+//   const sendMessage = () => {
+//     socket.emit("send_message", { message, room });
+//   };
+
+//   useEffect(() => {
+//     socket.on("receive_message", (data) => {
+//       setMessageReceived(data.message);
+//     });
+//   }, [socket]);
+//   return (
+//     <div className="Status">
+//       <input
+//         placeholder="Room Number..."
+//         onChange={(event) => {
+//           setRoom(event.target.value);
+//         }}
+//       />
+//       <button onClick={joinRoom}> Join Room</button>
+//       <input
+//         placeholder="Message..."
+//         onChange={(event) => {
+//           setMessage(event.target.value);
+//         }}
+//       />
+//       <button onClick={sendMessage}> Send Message</button>
+//       <h1> Message:</h1>
+//       {messageReceived}
+//     </div>
+//   );
+// }
+
+// export default Status;

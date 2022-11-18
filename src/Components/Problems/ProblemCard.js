@@ -8,17 +8,34 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 const ProblemCard = (prop) => {
     const [Problem, setProblem] = useState([]);
+    const [tried, setTried] = useState(0);
+    const [solved, setSolved] = useState(0);
+    const [tags, setTags] = useState("");
+    const [sample, setSample] = useState([]);
 
+    // console.log(response.data);
 
-	async function fetch (){
-        const response = await axios.get('http://localhost:3001/problem/'+prop.id);
-
-        console.log(response.data);
+	async function fetchMain (){
+        const response = await axios.get('http://localhost:3000/problem/byId/'+prop.id);
         setProblem(response.data);
+	}
+	async function fetchTag (){
+        const response = await axios.get('http://localhost:3000/problem/getTag/'+prop.id);
+        setTags("");
+        response.data.map( (tag) => {
+            setTags(tags + tag.tag)
+        } )
+	}
+	async function fetchSample (){
+        const response = await axios.get('http://localhost:3000/problem/getSample/'+prop.id);
+        setSample(response.data);
+        console.log(sample);
 	}
 
 	useEffect(() => {
-		fetch();
+		fetchMain();
+		fetchTag();
+		fetchSample();
 	}, [])
 
     return (
@@ -50,21 +67,21 @@ const ProblemCard = (prop) => {
                     <h1>{Problem.title}</h1>
                     <div className="gap24"/>
                     <div className="flexColumn">
-                        <span>Time Limit: 1000 ms</span>
-                        <span>Memory Limit 520000 kb</span>
+                        <span>Time Limit: {Problem.timeLimit} ms</span>
+                        <span>Memory Limit {Problem.memoryLimit} kb</span>
                         <span>OS: Linux</span>
                     </div>
                     <div className="gap24"/>
                     <div className="flexColumn">
-                        <span>Author: Jamil314</span>
+                        <span>Author: {Problem.author}</span>
                         <span>Tried: 54</span>
                         <span>Solved: 47</span>
                     </div>
                     <div className="gap24"/>
                     <div className="flexColumn">
-                        <span>Rating: 1200</span>
+                        <span>Rating: {Problem.difficulty}</span>
                         <span>Submissions</span>
-                        <span>Tags: Ad-hoc, Binary Search</span>
+                        <span>Tags: {tags}</span>
                     </div>
                 </div>
                 <Button variant="contained" className="ProblemInfo"><PublishIcon/>Submit</Button>
@@ -74,26 +91,29 @@ const ProblemCard = (prop) => {
             <div className="Description"> {Problem.statement} </div>
             <div className="Description"> Input <br/><br/> {Problem.inputDescription} </div>
             <div className="Description"> Output <br/><br/>  {Problem.outputDescription} </div>
-            <div className="Sample flexRow">
-                <div className="SampleDescription flexColumn">
-                    <div className="flexRow">
-                        Sample input 1 
-                        <Button variant="outlined" className="copyDirect"><ContentCopyIcon/></Button>
-                    </div> 
-                    4 <br/>
-                    4 2 1 3
-                </div>
+            <div className="flexColumn">
+                {sample.map((element, index) => (                
+                    <div className="Sample flexRow">
+                        <div className="SampleDescription flexColumn">
+                            <div className="flexRow">
+                                Sample input {index+1} 
+                                <Button variant="outlined" className="copyDirect"><ContentCopyIcon/></Button>
+                            </div> 
+                            {element.input}
+                        </div>
 
-                <div className="SampleDescription flexColumn">
-                    <div className="flexRow">
-                        Sample Output 1 
-                        <Button variant="outlined" className="copyDirect"><ContentCopyIcon/></Button>
-                    </div> 
-                    1 2 3 4
-                </div>
+                        <div className="SampleDescription flexColumn">
+                            <div className="flexRow">
+                                Sample Output {index+1}
+                                <Button variant="outlined" className="copyDirect"><ContentCopyIcon/></Button>
+                            </div> 
+                            {element.output}
+                        </div>
 
+                    </div>
+
+                ))}
             </div>
-
 
 
         </div>

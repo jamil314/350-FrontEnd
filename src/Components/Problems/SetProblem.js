@@ -3,6 +3,8 @@ import JoditEditor from 'jodit-react';
 import axios from 'axios';
 import {Button, TextField, InputAdornment} from '@mui/material'
 import Grid from "@material-ui/core/Grid";
+import socketClient from 'socket.io-client'
+
 
 import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -14,12 +16,12 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import '../../CSS/Problem.css'
 import TopBar from '../TopBar'
-import { text } from "@fortawesome/fontawesome-svg-core";
+
 const SetProblem = () => {
 	const editor = useRef(null);
 	const editorIn = useRef(null);
 	const editorOut = useRef(null);
-	const [content, setContent] = useState('');
+    const bufferSize = 1024;
 
     const [step, setStep] = useState(1)
     const [title, setTitle] = useState("")
@@ -70,7 +72,7 @@ const SetProblem = () => {
 
     const handleSampleOutputChange = (e, index) => {
         const file = e.target.files[0];
-        if(file.size>500) alert("sample should be <= 500 bytes")
+        if(file.size > 500) alert("sample should be <= 500 bytes")
         else{
             let reader = new FileReader();
             reader.readAsText(file);
@@ -104,7 +106,7 @@ const SetProblem = () => {
         reader.readAsDataURL(file);
         reader.onload = (e) => {
             const list = [...mainTestList];
-            list[index]["input"] = e.target.result;
+            list[index]["input"] = e.target.result.split(',')[1];
             setmainTestList(list);
         }
     };
@@ -115,7 +117,7 @@ const SetProblem = () => {
         reader.readAsDataURL(file);
         reader.onload = (e) => {
             const list = [...mainTestList];
-            list[index]["output"] = e.target.result;
+            list[index]["output"] = e.target.result.split(',')[1];
             setmainTestList(list);
         }
     };
@@ -133,105 +135,85 @@ const SetProblem = () => {
         setmainTestList([...mainTestList, {input: "" , output: ""}]);
     };
 
-    const uploadMain = (pid) => {
-        setUploadStatus("Uploading Main test cases")
-        let toComplete = mainTestList.length - 1;
-        mainTestList.map((test, index) => {
-                if(index != mainTestList.length - 1) {
-                    axios.post('http://localhost:3000/problem/mainInput', {
-                        // path:pid+"/main"+index,
-                        data:test.input.split(',')[1],
-                        pid, index
-                    },{
-                        headers: { 'authorization': localStorage.getItem('token') },
-                    }).then((res) =>{
-                        axios.post('http://localhost:3000/problem/mainOutput', {
-                            data:test.input.split(',')[1],
-                            pid, index
-                        },{
-                            headers: { 'authorization': localStorage.getItem('token') },
-                        }).then((res) =>{
-                            axios.post('http://localhost:3000/problem/mainCase', {
-                                index,
-                                pid,
-                                input:"../350-storage/"+pid+"/"+index+"/input.txt",
-                                output:"../350-storage/"+pid+"/"+index+"/output.txt",
-                            },{
-                                headers: { 'authorization': localStorage.getItem('token') },
-                            }).then((res) =>{
-                                toComplete--;
-                                if(toComplete == 0) 
-                                alert("Created Problem Successfully")
-                            }).catch((res) =>{
-                                alert("create problem failed")
-                            })
-                            }).catch((res) =>{
-                                alert("create problem failed")
-                            })
-                    }).catch((res) =>{
-                        alert("create problem failed")
-                    })
-                    console.log(test.input);
-                    console.log(test.output);
-                }
-            }
-        )
-        console.log(mainTestList);
-    }
 
-
-    const uploadSamples = (pid) => {
-        setUploadStatus("Uploading Sample test cases")
-        let toComplete = sampleTestList.length - 1;
-        sampleTestList.map((test, index) => {
-                if(index != sampleTestList.length - 1) {
-                    axios.post('http://localhost:3000/problem/sampleCase', {
-                        pid,
-                        index,
-                        input:test.input,
-                        output:test.output
-                    },{
-                        headers: { 'authorization': localStorage.getItem('token') },
-                    }).then((res) =>{
-                        toComplete--;
-                        if(toComplete == 0) uploadMain(pid);
-                    }).catch((res) =>{
-                        alert("create problem failed")
-                    })
-                }
-            }
-        )
-        console.log(sampleTestList);
-    }
-
-
-
-    const uploadTags = (pid) => {
-        setUploadStatus("Uploading tags")
-        axios.post('http://localhost:3000/problem/tags', {
-            tagList,
-            pid
-        },{
-            headers: { 'authorization': localStorage.getItem('token') },
-        }).then((res) =>{
-            uploadSamples(pid);
-		}).catch((res) =>{
-			alert("create problem failed")
-		})
-    }
     
+
+    const uploadTests = (pid) => {
+        
+        setUploadStatus("Uploading Main test cases to the server");
+        
+        const socket = socketClient('http://localhost:3000', {
+            query: { token:localStorage.getItem('token') }
+        });
+        
+        socket.emit('openProblemFolder', pid);
+        
+        socket.on('giveTest', (testId) => {
+            console.log('giveTest');
+            console.log(testId, mainTestList.length);
+            if(testId < mainTestList.length - 1) 
+                socket.emit('openTestFolder', pid, testId);
+            else {
+                alert('Problem Created Successfully');
+                socket.disconnect();
+                window.location.href = "/problems"
+            }
+        })
+        
+        socket.on('sendInput', (testId, blockId) => {
+            console.log('sendInput');
+            let buffer, isLast = false;
+            if(mainTestList[testId].input.length <= bufferSize * (blockId+1)){
+                isLast = true;
+                buffer = mainTestList[testId].input.slice(bufferSize * blockId, mainTestList[testId].input.length);
+            }
+            else
+                buffer = mainTestList[testId].input.slice(bufferSize * blockId, bufferSize * (blockId + 1))
+            
+            socket.emit("inputChunk", pid, testId, blockId, isLast, buffer);
+        })
+
+        socket.on('sendOutput', (testId, blockId) => {
+            console.log('sendOutput');
+            let buffer, isLast = false;
+            if(mainTestList[testId].output.length <= bufferSize * (blockId+1)){
+                isLast = true;
+                buffer = mainTestList[testId].output.slice(bufferSize * blockId, mainTestList[testId].output.length);
+            }
+            else
+                buffer = mainTestList[testId].output.slice(bufferSize * blockId, bufferSize * (blockId + 1))
+
+            socket.emit("outputChunk", pid, testId, blockId, isLast, buffer);
+
+        })
+
+        socket.on('Error', (errMsg) => {
+            console.log(errMsg);
+            socket.disconnect();
+        })
+        
+
+    }
+
+    const validateData = () => {
+
+    }
+
     const createProblem = () => {
+        validateData();
         setUploadStatus("Creating Contest")
         axios.post('http://localhost:3000/problem', {
-            title, timeLimit,  memoryLimit, statement, inputDescription, outputDescription, diff
+            title, timeLimit,  memoryLimit, statement, inputDescription, outputDescription, diff,
+            tagList, sampleTestList
 		},{
             headers: { 'authorization': localStorage.getItem('token') },
         }).then((res) =>{
-            uploadTags(res.data.id);
+            uploadTests(res.data.id);
 		}).catch((res) =>{
 			alert("create problem failed")
 		})
     }
+
 
     const submit = () => {
         createProblem();

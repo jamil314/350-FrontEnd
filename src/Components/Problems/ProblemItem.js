@@ -10,7 +10,7 @@ const ProblemItem = (prop) => {
     return (
         <div className="ProblemItem">
             <div className="ProblemTitle ThinBorder clickable" onClick={oepnProblem}>
-                {prop.problem == "" ? "Title" : prop.problem.name}</div>
+                {prop.problem == "" ? "Title" : prop.problem.title}</div>
             <div className="ProblemTags ThinBorder">
                 {prop.problem == "" ? "Tags" : "Ad-Hoc"}</div>
             <div className="ProblemDiff ThinBorder">

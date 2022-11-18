@@ -29,11 +29,11 @@ const Problems = () => {
 		<div className="App Problem">
 			<TopBar/>
 			<div className="gap8"/>
-			<Button variant="contained" onClick={() => window.location.href='/newproblem'}><AddCircleOutlineOutlinedIcon/>Create Problem</Button>
+			{/* <Button variant="contained" onClick={() => window.location.href='/newproblem'}><AddCircleOutlineOutlinedIcon/>Create Problem</Button> */}
 			<ProblemFilter/>
 			<div className="ProblemsContainer">
 				<ProblemItem problem=""/>
-				<div className="">
+				<div className="ProblemsContainerScroller">
 					{problems.map((problem)=> {return <ProblemItem problem={problem}/>})}
 				</div>
 			</div>
