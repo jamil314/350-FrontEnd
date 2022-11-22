@@ -212,6 +212,9 @@
     border-radius: 24px;
     width: 96vw;
 }
+.Description p{
+    margin: 0;
+}
 
 .SampleDescription{
     background-color: rgba(220, 220, 300, 80%);
@@ -271,5 +274,23 @@
 }
 .jodit-wysiwyg p{
     margin: 0;
+}
+
+.submitSolutionContainer{
+    height: 75vh;
+    width: 50vw;
+    background-color: rgba(220, 220, 300, 95%);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.submitSolutionTop{
+    width: 50vw;
+}
+
+.submitSolutionText{
+    width: 48vw;
+    height: 60vh;
+    padding: 8px;
 }
 

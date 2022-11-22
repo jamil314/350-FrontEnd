@@ -62,6 +62,7 @@ const ProfileMenu = (prop) => {
 					<a onClick={gotoChats}>Chats</a>
 					<a onClick={gotoInvites}>Invites</a>
 					<a onClick={() => window.location.href='/newproblem'}>Create Problem</a>
+					<a onClick={() => window.location.href="newcontest"}>Create Contest</a>
 					<a onClick={logOut}>Log Out</a>
 				</div>
 				) : (

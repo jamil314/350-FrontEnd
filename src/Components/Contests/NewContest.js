@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import '../../CSS/Contest.css'
 import TopBar from "../TopBar";
+import axios from 'axios';
+
+
 import {Button, TextField, InputAdornment} from '@mui/material'
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
@@ -19,10 +22,22 @@ const NewContest = () => {
     const [title, settitle] = useState()
     const [password, setPassword] = useState()
     const [des, setDes] = useState()
-    const [problemList, setProblemList] = useState([{ id: "", title: "Problem 1", alias: ""}]);
+    const [problemList, setProblemList] = useState([{ id: "", title: "", alias: ""}]);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
+	async function fetchTitle (index){
+        const list = [...problemList];
+        await axios.get('http://localhost:3000/problem/byId/'+list[index]['id'])
+            .then (res => {
+                list[index]['title'] = res.data.title;
+                setProblemList(list);
+            })
+            .catch(e => {
+                list[index]['title'] = 'No Such Problem';
+                setProblemList(list);
+            });
+	}
 
     const handleStartDateChange = (date) => {
         console.log(date);
@@ -41,10 +56,17 @@ const NewContest = () => {
         console.log(problemList);
     };
 
-    const handleProblemChange = (e, index) => {
-        const { name, value } = e.target;
+    const handleProblemIdChange = (e, index) => {
         const list = [...problemList];
-        list[index][name] = value;
+        list[index]['id'] = e.target.value;
+        setProblemList(list);
+
+        fetchTitle(index);
+    };
+
+    const handleProblemAliasChange = (e, index) => {
+        const list = [...problemList];
+        list[index]['alias'] = e.target.value;
         setProblemList(list);
     };
 
@@ -179,7 +201,7 @@ const NewContest = () => {
                                                 id="id"
                                                 size="small"
                                                 value={singleProblem.id}
-                                                onChange={(e) => handleProblemChange(e, index)}
+                                                onChange={(e) => handleProblemIdChange(e, index)}
                                             />
 
                                             <div className="gap24" />
@@ -193,7 +215,6 @@ const NewContest = () => {
                                                 id="title"
                                                 size="small"
                                                 value={singleProblem.title}
-                                                onChange={(e) => handleProblemChange(e, index)}
                                             />
 
                                             <div className="gap24" />
@@ -206,7 +227,7 @@ const NewContest = () => {
                                                 id="alias"
                                                 size="small"
                                                 value={singleProblem.alias}
-                                                onChange={(e) => handleProblemChange(e, index)}
+                                                onChange={(e) => handleProblemAliasChange(e, index)}
                                             />
 
                                             <div className="gap24" />

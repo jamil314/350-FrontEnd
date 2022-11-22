@@ -26,7 +26,6 @@ const ContestList = () => {
         <div className="Contestlist">
             <TopBar/>
 			<div className="gap8"/>
-			<Button variant="contained" onClick={() => window.location.href="newcontest" }><AddCircleOutlineOutlinedIcon/>Create Contest</Button>
 			<ContestFilter/>
 			<div className="ContestsContainer">
 				<ContestItem contest={contestListHeader}/>
