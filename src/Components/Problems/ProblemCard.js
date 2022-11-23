@@ -15,7 +15,7 @@ const ProblemCard = (prop) => {
     const [sample, setSample] = useState([]);
     const [submitMode, setSubmitMode] = useState(false);
 
-    // console.log(response.data);
+    console.log(prop);
 
 	async function fetchMain (){
         const response = await axios.get('http://localhost:3000/problem/byId/'+prop.id);
@@ -49,8 +49,8 @@ const ProblemCard = (prop) => {
 	}, [])
 
     return (
-        <div className={prop.mode == "Contest"?"SingleProblem forContest":"SingleProblem forPractice"}>
-        {prop.mode == "Contest"?
+        <div className={prop.contestId?"SingleProblem forContest":"SingleProblem forPractice"}>
+        {prop.contestId?
                 <div className="ProblemHeader">
                 <div className="ProblemInfo flexRow">
                     <div className="flexColumn">
@@ -60,12 +60,13 @@ const ProblemCard = (prop) => {
                     <h1>{Problem.title}</h1>
                     <div className="gap24"/>
                     <div className="flexColumn">
-                        <span>Time Limit: 1000 ms</span>
-                        <span>Memory Limit 520000 kb</span>
+                        <span>Time Limit: {Problem.timeLimit} ms</span>
+                        <span>Memory Limit {Problem.memoryLimit} kb</span>
                         <span>OS: Linux</span>
                     </div>
                 </div>
-                <Button variant="contained" className="ProblemInfo"><PublishIcon/>Submit</Button>
+                <Button variant="contained" className="ProblemInfo" onClick={() => setSubmitMode(true)}><PublishIcon/>Submit</Button>
+
             </div>
             :
             <div className="ProblemHeader">
@@ -136,7 +137,7 @@ const ProblemCard = (prop) => {
 
                 ))}
             </div>
-                {submitMode?<SubmitSolution abort = {abortSubmit} id = {Problem.problemID} />:null}
+                {submitMode?<SubmitSolution abort = {abortSubmit} id = {Problem.problemID} contest = {prop.contestId}/>:null}
 
         </div>
   );

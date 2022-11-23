@@ -1,10 +1,10 @@
 import {useState, useEffect, React} from "react";
 import '../../CSS/Contest.css'
 import ProblemItem from "../Contests/ProblemItem";
-const Problemset = () => {
+const Problemset = (prop) => {
 
     const [Problem, setProblem] = useState([]);
-    const [ProblemHeader, setProblemHeader] = useState({"Title":"Title", "Solved":"Solved", "Tried":"Tried"});
+    const [ProblemHeader, setProblemHeader] = useState({"alias":"Title"});
 
 
 	const dummy = () => {
@@ -15,15 +15,26 @@ const Problemset = () => {
 					 {"id":5, "Title":"Eatcoin", "Solved":3, "Tried":4}]);
 	}
 
+    const gotoProblem = (pid) => {
+        prop.gotoProblem(pid);
+    }
+
+
     useEffect(() => {
-		dummy();
+		// dummy();
+        setProblem(prop.problems)
 	}, [])
 
 
     return (
         <div className="Problemset">
             <ProblemItem problem={ProblemHeader}/>
-            {Problem.map((problem)=> {return <ProblemItem problem={problem}/>})}
+            {Problem.map((problem)=> {return <ProblemItem 
+                                                gotoProblem = {gotoProblem}
+                                                problem={problem} 
+                                                ac = {prop.verdicts.accepted.get(problem.id) || 0}
+                                                tot = {(prop.verdicts.rejected.get(problem.id) || 0) + (prop.verdicts.accepted.get(problem.id) || 0 )} 
+                                            />})}
         </div>
   );
 }

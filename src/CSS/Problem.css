@@ -294,3 +294,49 @@
     padding: 8px;
 }
 
+
+.Status{
+    width: 60vw;
+    left: 4px;
+    top: 44px;
+    border-radius: 16px;
+    background-color: rgba(220, 220, 300, 80%);
+    padding: 16px;
+}
+
+.StatusContainer{
+    max-height: 75vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.StatusItem{
+    display: flex;
+    flex-direction: row;
+}
+
+.StatusTitle{
+    /* width: 25vw; */
+    width: 262px;
+    padding-left: 8px;
+}
+.StatusName{
+    width: 212px;
+    padding-left: 8px;
+}
+.StatusVerdict{
+    width: 292px;
+    padding-left: 8px;
+}
+
+
+.Submissions{
+    background-image: url(../Recources/profile.png);
+    height: 100vh;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.marginTop24px{
+    margin-top: 24px;
+}

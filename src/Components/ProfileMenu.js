@@ -23,12 +23,11 @@ const ProfileMenu = (prop) => {
 	const gotoInvites = () => {
 		alert("Visiting Invites");
 	};
-	const openJudgePortal = () => {
-		window.location.href = "/judge/profile";
-	};
-
+	
 	const logOut = () => {
 		setLoggedIn(false);
+		localStorage.setItem('token', null);
+		localStorage.setItem('userID', null);
 	};
 
 	const abort = () => {
@@ -59,10 +58,10 @@ const ProfileMenu = (prop) => {
 				{isLoggedIn ? (
 				<div className="ProfileList">
 					<a onClick={gotoProfile}>Profile</a>
-					<a onClick={gotoChats}>Chats</a>
-					<a onClick={gotoInvites}>Invites</a>
+					{/* <a onClick={gotoChats}>Chats</a>
+					<a onClick={gotoInvites}>Invites</a> */}
 					<a onClick={() => window.location.href='/newproblem'}>Create Problem</a>
-					<a onClick={() => window.location.href="newcontest"}>Create Contest</a>
+					<a onClick={() => window.location.href="/newcontest"}>Create Contest</a>
 					<a onClick={logOut}>Log Out</a>
 				</div>
 				) : (

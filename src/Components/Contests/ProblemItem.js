@@ -3,15 +3,18 @@ import '../../CSS/Contest.css'
 const ProblemItem = (prop) => {
 
     const oepnProblem = () => {
-        window.location.href = '/problem/'+prop.problem.id;
+        if(prop.problem.id){
+            prop.gotoProblem(prop.problem.problemID)
+        }
     }
 
 
     return (
         <div className="ProblemItem">
-            <div className="ProblemTitle ThinBorder clickable" onClick={oepnProblem}>{prop.problem.Title}</div>
-            <div className="ProblemSolved ThinBorder">{prop.problem.Solved}</div>
-            <div className="ProblemTried ThinBorder">{prop.problem.Tried}</div>
+            <div className= {prop.problem.problemID ? "ProblemTitle ThinBorder clickable" : "ProblemTitle ThinBorder" } 
+            onClick={oepnProblem}>{prop.problem.alias}</div>
+            <div className="ProblemSolved ThinBorder">{prop.ac == undefined ? "Accepted" : prop.ac}</div>
+            <div className="ProblemTried ThinBorder">{ prop.tot == undefined ? "Tried" : prop.tot }</div>
         </div>
   );
 }

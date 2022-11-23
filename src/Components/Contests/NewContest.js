@@ -31,6 +31,7 @@ const NewContest = () => {
         await axios.get('http://localhost:3000/problem/byId/'+list[index]['id'])
             .then (res => {
                 list[index]['title'] = res.data.title;
+                list[index]['alias'] = res.data.title;
                 setProblemList(list);
             })
             .catch(e => {
@@ -77,7 +78,22 @@ const NewContest = () => {
     };
 
     const submit = () => {
-        alert('Successfully created contest');
+        axios.post('http://localhost:3000/contest/', {
+            contestName:title,
+            contestDescription: des,
+            contestPassword: password,
+            startTime: startDate,
+            endTime: endDate,
+            problemList         
+        },{
+            headers: { 'authorization': localStorage.getItem('token') },
+        }).then((res) =>{
+            alert('Successfully created contest');
+            window.location.href = "/contests";
+
+        }).catch((res) =>{
+            alert("Contest Creation failed")
+        })
     }
 
 

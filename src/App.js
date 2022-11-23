@@ -17,6 +17,8 @@ import JudgeProfile from "./Components/Judge/JudgeProfile";
 import SetProblem from "./Components/Problems/SetProblem";
 import NewContest from "./Components/Contests/NewContest";
 import Profile from "./Components/Profile";
+import JoinContest from "./Components/Contests/JoinContest";
+import Submissions from "./Components/Submissions";
 
 const customTheme = createMuiTheme({
 	palette:{
@@ -54,7 +56,9 @@ function App() {
 					<Route path="/judge/profile" element={<JudgeProfile />} />
 					<Route path="/newproblem" element={<SetProblem />} />
 					<Route path="/newcontest" element={<NewContest />} />
+					<Route path="/submissions" element={<Submissions />} />
 					<Route path="/profile/:id" element={<Profile/>} />
+					<Route path="/joinContest/:id" element={<JoinContest/>} />
 					<Route path="*" element={<NotFound code={404} msg={"Page Not Found"} />} />
 				</Routes>
 			</BrowserRouter>

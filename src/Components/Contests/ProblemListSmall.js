@@ -2,22 +2,27 @@ import {React, useEffect, useState} from "react";
 import '../../CSS/Contest.css'
 import ProblemCard from "../Problems/ProblemCard";
 const ProblemListSmall = (prop) => {
-    const [problem, setProblem] = useState(0);
-    const [problemList, setProblemList] = useState([1, 2, 3, 4, 5]);
+    console.log(prop.pid);
+    const [problem, setProblem] = useState(prop.pid);
+
+    const changeProblem = (id) => {
+        setProblem(id);
+        prop.setCurrentProblem(id);
+    }
 
     return (
         <div className="ProblemListSmall">
             <div className="flexRow">
                 <div className="ProblemListSteps">
-                    {problemList.map((p, id) => (
-                        <div onClick={() => setProblem(id)}
-                        className={problem==id?"ActivePoblemShrotCut":"PoblemShrotCut"}>
-                            <text>{String.fromCharCode(97+id)}</text>
+                    {prop.problems.map((p, index) => (
+                        <div onClick={() => changeProblem(p.problemID)}
+                        className={problem==p.problemID?"ActivePoblemShrotCut":"PoblemShrotCut"}>
+                            <text>{String.fromCharCode(97+index)}</text>
                         </div>
                     ))}
                 </div>
             </div>
-            <ProblemCard id = {problemList.at(problem)} mode = "Contest"/>
+            <ProblemCard id = {problem} contestId = {prop.contest}/>
         </div>
   );
 }

@@ -2,21 +2,18 @@ import React from "react";
 import '../../CSS/Contest.css'
 const StandingItem = (prop) => {
 
-    const oepnContest = () => {
-        window.location.href = '/contest/'+prop.contest.id;
+    const gotoUser = () => {
+        if(! prop.header) window.location.href = '/profile/'+prop.item.userId;
     }
 
 
     return (
-        <div className="StandingItem" onClick={oepnContest}>
-            <div className="ParticipentName ThinBorder">{prop.participent.Participent}</div>
-            <div className="ParticipentSolved ThinBorder">{prop.participent.Solved}</div>
-            <div className="ParticipentPenalty ThinBorder">{prop.participent.Penalty}</div>
-            <div className="ParticipentProblem ThinBorder">{prop.participent.A}</div>
-            <div className="ParticipentProblem ThinBorder">{prop.participent.B}</div>
-            <div className="ParticipentProblem ThinBorder">{prop.participent.C}</div>
-            <div className="ParticipentProblem ThinBorder">{prop.participent.D}</div>
-            <div className="ParticipentProblem ThinBorder">{prop.participent.E}</div>
+        <div className="StandingItem">
+            <div className= {prop.header? "ParticipentName ThinBorder" : "ParticipentName ThinBorder clickable"} 
+            onClick={() => gotoUser()}
+            >{prop.item.userName}</div>
+            <div className="ParticipentSolved ThinBorder">{prop.item.solved}</div>
+            <div className="ParticipentPenalty ThinBorder">{prop.item.penalty}</div>
         </div>
   );
 }

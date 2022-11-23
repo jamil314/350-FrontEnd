@@ -3,13 +3,15 @@ import '../../CSS/Problem.css'
 const ProblemItem = (prop) => {
     
     const oepnProblem = () => {
-        window.location.href = '/problem/'+prop.problem.problemID;
+        if(! prop.header)
+            window.location.href = '/problem/'+prop.problem.problemID;
     }
 
 
     return (
         <div className="ProblemItem">
-            <div className="ProblemTitle ThinBorder clickable" onClick={oepnProblem}>
+            <div className= {prop.header? "ProblemTitle ThinBorder" :"ProblemTitle ThinBorder clickable"}
+                 onClick={oepnProblem}>
                 {prop.problem == "" ? "Title" : prop.problem.title}</div>
             <div className="ProblemTags ThinBorder">
                 {prop.problem == "" ? "Tags" : "Ad-Hoc"}</div>

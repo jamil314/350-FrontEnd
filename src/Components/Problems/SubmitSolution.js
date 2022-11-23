@@ -1,13 +1,15 @@
 import { Button } from '@mui/material';
 import React, {useState} from 'react'
 import socketClient, { Socket } from 'socket.io-client'
+import axios from 'axios';
+
 
 
 const SubmitSolution = (prop) => {
     const [solution, setSolution] = useState(null)
-    const [solution2, setSolution2] = useState({})
+    const [solution2, setSolution2] = useState("")
     const [status, setStatus] = useState("")
-    const [location, setLocation] = useState("")
+    // const [location, setLocation] = useState("")
     
     // console.log(prop.id);
 
@@ -43,42 +45,55 @@ const SubmitSolution = (prop) => {
         else socket.emit('judge', prop.id, solution, 'file');
 
         socket.on('submission', (folderUrl) => {
-            setLocation(folderUrl);
+            // setLocation(folderUrl);
         })
 
         socket.on('Running', (tid) => {
             setStatus("Running on case " + tid);
         })
 
-        socket.on('Verdict', (code, tid) => {
+        socket.on('Verdict', (code, tid, location) => {
             console.log(code, tid);
+            let st;
             switch (code) {
                 case 0:
-                    setStatus("Accepted");
-                    break;
+                    st = "Accepted";
                     break;
                 case 134:
-                    setStatus("Runtime Error - SIGABRT on case " + tid);
+                    st = ("Runtime Error - SIGABRT on case " + tid);
                     break;
                 case 136:
-                    setStatus("Runtime Error - SIGFPE on case " + tid);
+                    st = ("Runtime Error - SIGFPE on case " + tid);
                     break;
                 case 139:
-                    setStatus("Runtime Error - SIGSEGV on case " + tid);
+                    st = ("Runtime Error - SIGSEGV on case " + tid);
                     break;
                 case 1:
-                    setStatus("Compilation Error");
+                    st = ("Compilation Error");
                     break;
                 case 124:
-                    setStatus("Time limit exceeded on case " + tid);
+                    st = ("Time limit exceeded on case " + tid);
                     break;
                 case -1:
-                    setStatus("Wrong Answer on case " + tid);
+                    st = ("Wrong Answer on case " + tid);
                     break;
                 default:
                     break;
-            }
-            socket.disconnect();
+                }
+                setStatus(st);
+                console.log(st);
+                console.log(location);
+                axios.post('http://localhost:3000/submission/', {
+                    solution: location,
+                    problemId: prop.id,
+                    contestId: prop.contest,
+                    verdict: st
+                },{
+                    headers: { 'authorization': localStorage.getItem('token') },
+                }).then((res) =>{
+                }).catch((res) =>{
+                })
+                socket.disconnect();
         })
     }
 

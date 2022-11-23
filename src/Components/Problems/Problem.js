@@ -8,7 +8,7 @@ const Problem = () => {
     return (
         <div className="Problem">
             <TopBar/>
-            <ProblemCard mode="Practice" id = {id}/>
+            <ProblemCard id = {id} contestId = {null}/>
         </div>
   );
 }

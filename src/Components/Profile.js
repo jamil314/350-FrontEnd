@@ -160,8 +160,8 @@ const Profile = () => {
                         Phone: {phone}<br/>
                         Regstration No: {reg}<br/>
                         Session: {session}<br/>
-                        Last Seen: {lastSeen}<br/>
-                        Regestered: {regestered}
+                        {/* Last Seen: {lastSeen}<br/>
+                        Regestered: {regestered} */}
                     </div>
                 </Grid>
                 <Grid xs={6}>

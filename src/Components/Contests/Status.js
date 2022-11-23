@@ -1,50 +1,28 @@
-// import io from "socket.io-client";
-// import { useEffect, useState } from "react";
+import {React, useEffect, useState} from "react";
+import '../../CSS/Contest.css'
+import StatusItem from "../StatusItem";
+const Status = (prop) => {
+
+	const gotoProblem = (pid) => {
+		prop.gotoProblem(pid);
+	}
+
+	const [statusHeader, setstatusHeader] = useState({"userName":"User", "problemTitle":"Problem", "verdict":"Verdict"});
 
 
-// function Status() {
-//   //Room State
-//   const [room, setRoom] = useState("");
 
-//   // Messages States
-//   const [message, setMessage] = useState("");
-//   const [messageReceived, setMessageReceived] = useState("");
+    return (
+        <div className="Status">
+			<StatusItem header = {true} status = {statusHeader}/>
+			<div className="StatusContainer">
+				{prop.submissions.map((status)=> {return <StatusItem 
+						gotoProblem = {gotoProblem}
+						status = {status}
+					/>}
+				)}
+			</div>
+        </div>
+  );
+}
 
-//   const joinRoom = () => {
-//     if (room !== "") {
-//       socket.emit("join_room", room);
-//     }
-//   };
-
-//   const sendMessage = () => {
-//     socket.emit("send_message", { message, room });
-//   };
-
-//   useEffect(() => {
-//     socket.on("receive_message", (data) => {
-//       setMessageReceived(data.message);
-//     });
-//   }, [socket]);
-//   return (
-//     <div className="Status">
-//       <input
-//         placeholder="Room Number..."
-//         onChange={(event) => {
-//           setRoom(event.target.value);
-//         }}
-//       />
-//       <button onClick={joinRoom}> Join Room</button>
-//       <input
-//         placeholder="Message..."
-//         onChange={(event) => {
-//           setMessage(event.target.value);
-//         }}
-//       />
-//       <button onClick={sendMessage}> Send Message</button>
-//       <h1> Message:</h1>
-//       {messageReceived}
-//     </div>
-//   );
-// }
-
-// export default Status;
+export default Status;

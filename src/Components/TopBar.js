@@ -18,8 +18,8 @@ const TopBar = () => {
                         <a onClick={() => window.location.href = '/home'}>Sust Swe Oj</a>
                         <a onClick={() => window.location.href = '/contests'}>Contests</a>
                         <a onClick={() => window.location.href = '/problems'}>Problems</a>
-                        <a onClick={() => window.location.href = '/groups'}>Groups</a>
-                        <a onClick={() => window.location.href = '/users'}>Users</a>
+                        {/* <a onClick={() => window.location.href = '/groups'}>Groups</a> */}
+                        {/* <a onClick={() => window.location.href = '/users'}>Users</a> */}
                         <a onClick={() => window.location.href = '/submissions'}>Submissions</a>
                     </div>
                 </div>

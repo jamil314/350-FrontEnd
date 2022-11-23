@@ -61,7 +61,7 @@
     padding-left: 16px;
 }
 .ContestParticipation{
-    width: 50px;
+    width: 150px;
     text-align: left;
     padding-left: 16px;
 }
@@ -100,7 +100,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 67vw;
+    width: 50vw;
     background-color: rgba(220, 220, 300, 80%);
     border-radius: 16px;
     padding: 16px 48px;
@@ -293,4 +293,40 @@
     border-radius: 32px;
     overflow: hidden;
     margin-bottom: 4px;
+}
+
+
+.JoinContest{
+    background-image: url(../Recources/problem_bg.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: bottom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.LoginContest{
+    background-color: rgba(220, 220, 300, 80%);
+    border-radius: 16px;
+    padding: 16px 24px;
+    margin-top: 160px;
+    width: 40vw;
+
+}
+
+.TimeContainer{
+    text-align: center;
+    position: fixed;
+    right: 4px;
+    top: 44px;
+    background-color: rgba(220, 220, 300, 80%);
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.gapBig{
+    height: 4px;
+    width: 200px;
 }
