@@ -64,7 +64,9 @@ const SetProblem = () => {
             reader.readAsText(file);
             reader.onload = (e) => {
                 const list = [...sampleTestList];
-                list[index]["input"] = e.target.result;
+                let t = "<div>" + e.target.result.replaceAll("\n", "<br/>") + "</div>";
+                console.log(t);
+                list[index]["input"] = t;
                 setSampleTestList(list);
             }
         }
@@ -78,7 +80,9 @@ const SetProblem = () => {
             reader.readAsText(file);
             reader.onload = (e) => {
                 const list = [...sampleTestList];
-                list[index]["output"] = e.target.result;
+                let t = "<div>" + e.target.result.replaceAll("\n", "<br/>") + "</div>";
+                console.log(t);
+                list[index]["output"] = t;
                 setSampleTestList(list);
             }
         }

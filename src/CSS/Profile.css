@@ -28,20 +28,11 @@
     background-color: rgba(220, 220, 300, 60%);
 }
 
-.SolveHistory{
-    /* color: white; */
-}
-
-.SolveHistory:hover{
-    cursor: pointer;
-}
-
-
-.SetHistory{
+.Inactive{
     color: white; 
 }
 
-.SetHistory:hover{
+.Inactive:hover{
     cursor: pointer;
 }
 

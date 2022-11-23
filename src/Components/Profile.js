@@ -31,6 +31,9 @@ const Profile = () => {
     const [owner, setOwner] = useState(false);
     const [editProfileMode, setEditProfileMode] = useState(false);    
     const [FullName, setFullName] = useState("Jamil314");
+    const [historyMode, setHistoryMode] = useState("solve");
+    const [solved, setSolved] = useState([]);
+    const [set, setSet] = useState("solve");
 
 
     const [user, setUser] = useState("Jamil314");
@@ -57,7 +60,7 @@ const Profile = () => {
     const fetchProfileInfo = () => {
 		axios.get('http://localhost:3000/user/byID/'+id, {
 		}).then((res) =>{
-            console.log(res.data);
+            // console.log(res.data);
             setFullName(res.data.name);
             setUser(res.data.username);
             setEmail(res.data.email);
@@ -68,6 +71,33 @@ const Profile = () => {
 		})
     }
   
+    const fetchSolved = () => {
+		axios.get('http://localhost:3000/submission/byUser/'+id, {
+		}).then((res) =>{
+            // console.log(res.data);
+            let arr = [];
+            let mp = new Map();
+            res.data.map((sub) => {
+                if(! mp.has(sub.problemId)){
+                    mp.set(sub.problemId, 1);
+                    arr = [...arr, {"pid":sub.problemId, "title":sub.problemTitle}]
+                }
+            })
+            setSolved(arr);
+            console.log(arr);
+		});
+
+    }
+
+    const fetchSet = () => {
+		axios.get('http://localhost:3000/problem/byUser/'+id, {
+		}).then((res) =>{
+            setSet(res.data);
+            console.log(res.data);
+		})
+
+    }
+
     const abort = () => {
         fetchProfileInfo();
         setEditProfileMode(false);
@@ -137,6 +167,8 @@ const Profile = () => {
 
     useEffect(() => {
         fetchProfileInfo();
+        fetchSolved();
+        fetchSet();
         setOwner ( (localStorage.getItem('userID') == id));
     }, []);
 
@@ -168,9 +200,22 @@ const Profile = () => {
                     <div className="History">
                         
                         <div className="flexRow">
-                            <div className="SolveHistory"><h3>Solve History</h3></div>
-                            <div className="SetHistory"><h3>Set History</h3></div>
+                            <div className={ historyMode == "solve" ? "Active" : "Inactive"}><h3 onClick={() => setHistoryMode("solve")}>Solve History</h3></div>
+                            <div className={ historyMode == "solve" ? "Inactive" : "Active"}><h3 onClick={() => setHistoryMode("set")}>Set History</h3></div>
                         </div>
+                        
+                        {
+                            historyMode == "solve" ?
+                                <ul>
+                                    {solved.map((e) => {return <li className="clickable" onClick={() => window.location.href='/problem/'+e.pid}>{e.title}</li> })}
+                                </ul>
+                            :
+                                <ul>
+                                    {set.map((e) => {return <li className="clickable" onClick={() => window.location.href='/problem/'+e.problemID}>{e.title}</li> })}
+                                </ul>
+                        }
+
+
                     </div>
                 </Grid>
             </Grid>

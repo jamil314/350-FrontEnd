@@ -6,18 +6,53 @@ import ProblemItem from "./ProblemItem";
 import ProblemFilter from "./ProblemFilter";
 const Problems = () => {
 
-	const [problems, setProblems] = useState([{}]);
+	const [problems, setProblems] = useState([]);
 	const [problemHeader, setProblemHeader] = useState({});
+
+
+	const fetchSubmissions = (prb) => {
+		prb.map((p, index) => {
+			axios.get('http://localhost:3000/submission/byProblem/'+p.problemID, {
+			}).then((res) =>{
+				// console.log(res.data);
+				let subs = res.data;
+				p.try = subs.length;
+
+                const ac = subs.filter(
+                    sub => sub.verdict == "Accepted"
+                )
+				p.ac = ac.length;
+
+				if(index == prb.length - 1) setProblems(prb);
+			})
+			
+		})
+	}
 
 
 	async function getAllProblems(){
 		axios.get('http://localhost:3000/problem', {
 		}).then((res) =>{
-            console.log(res.data);
-			setProblems(res.data);
+            // console.log(res.data);
+			// setProblems(res.data);
+			let prb = res.data;
+			prb.map((p, index) => {
+				p.tag = "";
+				axios.get('http://localhost:3000/problem/getTag/'+p.problemID, {
+				}).then((res) =>{
+					const tags = res.data;
+					tags.map((t) => {
+						p.tag += t.tag
+					});
+				})
+				if(index == prb.length - 1){
+					fetchSubmissions(prb);
+				}
+			})
+
 		})
 	}
-	
+
 
 	useEffect(() => {
 		getAllProblems()

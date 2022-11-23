@@ -8,7 +8,7 @@ const StatusItem = (prop) => {
     }
 
     const gotoProfile = () => {
-        if( !prop.header) window.location.href='/profile/'+prop.status.userId;;
+        if( !prop.header) window.location.href='/profile/'+prop.status.userId;
     }
 
     

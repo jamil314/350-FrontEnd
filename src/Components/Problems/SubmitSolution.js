@@ -53,7 +53,7 @@ const SubmitSolution = (prop) => {
         })
 
         socket.on('Verdict', (code, tid, location) => {
-            console.log(code, tid);
+            console.log(code, tid, location);
             let st;
             switch (code) {
                 case 0:

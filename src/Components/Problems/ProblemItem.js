@@ -7,6 +7,8 @@ const ProblemItem = (prop) => {
             window.location.href = '/problem/'+prop.problem.problemID;
     }
 
+    console.log(prop.problem);
+
 
     return (
         <div className="ProblemItem">
@@ -14,13 +16,13 @@ const ProblemItem = (prop) => {
                  onClick={oepnProblem}>
                 {prop.problem == "" ? "Title" : prop.problem.title}</div>
             <div className="ProblemTags ThinBorder">
-                {prop.problem == "" ? "Tags" : "Ad-Hoc"}</div>
+                {prop.problem == "" ? "Tags" : prop.problem.tag}</div>
             <div className="ProblemDiff ThinBorder">
-                {prop.problem == "" ? "Difficulty" : "1200"}</div>
+                {prop.problem == "" ? "Difficulty" : prop.problem.difficulty}</div>
             <div className="ProblemSolved ThinBorder">
-                {prop.problem == "" ? "Solved" : 43}</div>
+                {prop.problem == "" ? "Solved" : prop.problem.ac}</div>
             <div className="ProblemTried ThinBorder">
-                {prop.problem == "" ? "Tried" : 51}</div>
+                {prop.problem == "" ? "Tried" : prop.problem.try}</div>
 
         </div>
   );
